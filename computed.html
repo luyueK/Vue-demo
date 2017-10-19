@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+
+    <title></title>
+    <script src="vue.js"></script>
+</head>
+<body>
+<div id="app">
+  <input v-model="message"/><br/>
+    input:{{ message }}<br/>
+    methods:{{reverse()}}<br/>
+    {{fullName}}
+</div>
+<script>
+    var app=new Vue({
+        el:"#app",
+        data:{
+            message:""
+        },
+        methods:{
+            reverse:function(){
+                return this.message.split("").reverse().join("")
+            }
+        },
+        computed: {
+            fullName: {
+                // getter
+                get: function () {
+                    console.log("get");
+                    return this.firstName + ' ' + this.lastName
+                },
+                // setter
+                set: function (newValue) {
+                    console.log("set");
+                    console.log(newValue);
+                    var names = newValue.split(' ');
+                    this.firstName = names[0];
+                    this.lastName = names[names.length - 1]
+                }
+            }
+        }
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+
+    <title></title>
+    <script src="jquery-3.1.0.min.js"></script>
+    <script src="vue.js"></script>
+    <link rel="stylesheet" href="bootstrap.css" type="text/css">
+</head>
+<body>
+<div id="app">
+    <table class="table">
+        <tr>
+            <td>编号</td>
+            <td>名称</td>
+            <td>购买数量</td>
+            <td>单价</td>
+            <td>总价</td>
+            <td>操作</td>
+        </tr>
+        <tr v-for="(item,index) in list">
+            <td>{{item.number}}</td>
+            <td>{{item.name}}</td>
+            <td>
+                <button class="btn btn-danger" @click="reduceNum(index)">-</button>
+                <input type="text" class="num" v-model="item.num"/>
+                <button class="btn btn-danger" @click="addNum(index)">+</button>
+            </td>
+            <td>{{item.price}}</td>
+            <td>{{total(index)}}</td>
+            <td><button class="btn btn-danger" @click="del(index)">移除</button></td>
+        </tr>
+    </table>
+    <p>总计：￥{{sum()}}元</p>
+
+</div>
+<script>
+    var app=new Vue({
+        el:"#app",
+        data:{
+            list:[
+                {
+                    number:1,
+                    name:"苹果7",
+                    num:1,
+                    price:5000,
+                },
+                {
+                    number:2,
+                    name:"苹果6",
+                    num:1,
+                    price:2000,
+                },
+                {
+                    number:3,
+                    name:"苹果5",
+                    num:1,
+                    price:1000,
+                },
+                {
+                    number:4,
+                    name:"苹果4",
+                    num:1,
+                    price:4000,
+                }
+            ]
+        },
+        methods:{
+            //数量+
+            addNum:function(a){
+                this.list[a].num=this.list[a].num+1
+            },
+            //数量减
+            reduceNum:function(a){
+                if(this.list[a].num>1){
+                    this.list[a].num=this.list[a].num-1
+                }
+
+            },
+            //总价
+            total:function(a){
+                return this.list[a].num*this.list[a].price
+
+            },
+            //清除
+            del:function(a){
+                this.list.splice(a,1)
+            },
+            sum:function(){
+                var sum=0;
+                for(var i=0;i<this.list.length;i=i+1){
+                    sum+=this.list[i].num*this.list[i].price
+                }
+                return sum
+            }
+
+
+        }
+
+    })
+</script>
+</body>
+</html>

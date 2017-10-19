@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+
+    <title></title>
+    <script src="vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <audio autoplay controls :src="songsrc" v-on:></audio>
+    <ul>
+        <li v-for="item in songs" @click="changeSrc(item.src)">{{item.name}}</li>
+    </ul>
+</div>
+<script>
+    var app=new Vue({
+        el:"#app",
+        data:{
+            songsrc:"./mp3/fade.mp3",
+            songs:[{src:"./mp3/fade.mp3",name:"fade"},{src:"./mp3/Mh.mp3",name:"Mh"}]
+        },
+        methods:{
+            changeSrc:function(src){
+                console.log(src);
+                this.songsrc=src
+            },
+            next:function(){
+                this.songsrc="./mp3/Mh.mp3"
+            }
+        }
+    })
+</script>
+</body>
+</html>
